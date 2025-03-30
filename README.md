@@ -1,4 +1,4 @@
-# Welcome to your Lovable project
+# Welcome to your BRupani Lawroom app 
 
 ## Project info
 
@@ -6,13 +6,7 @@
 
 ## How can I edit this code?
 
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/bacbf6a0-6002-460e-9102-3147f166df83) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
+Simply visit the (https://lovable.dev/projects/bacbf6a0-6002-460e-9102-3147f166df83) and start prompting.
 
 **Use your preferred IDE**
 
@@ -62,8 +56,8 @@ This project is built with .
 
 ## How can I deploy this project?
 
-Simply open [Lovable](https://lovable.dev/projects/bacbf6a0-6002-460e-9102-3147f166df83) and click on Share -> Publish.
+Simply open (https://lovable.dev/projects/bacbf6a0-6002-460e-9102-3147f166df83) and click on Share -> Publish.
 
 ## I want to use a custom domain - is that possible?
 
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
