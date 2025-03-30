@@ -68,7 +68,14 @@ export default {
 					secondary: '#E6AF2E',
 					accent: '#3E92CC',
 					light: '#F8F8F8',
-					dark: '#1E1E1E'
+					dark: '#1E1E1E',
+					// New colors from the logo
+					teal: '#3EB7CB',
+					deepTeal: '#097B8F',
+					lightTeal: '#74D0DE',
+					coral: '#E25D6A',
+					deepCoral: '#C12B39',
+					lightCoral: '#F47F8A'
 				}
 			},
 			borderRadius: {

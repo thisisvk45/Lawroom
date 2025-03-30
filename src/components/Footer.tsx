@@ -1,9 +1,10 @@
 
 import { Instagram, Twitter, Linkedin } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-lawai-primary text-white py-10">
+    <footer className="bg-gradient-to-r from-lawai-deepTeal to-lawai-teal text-white py-10">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="col-span-1 md:col-span-2">
@@ -17,7 +18,7 @@ const Footer = () => {
                 href="https://www.instagram.com/lawroomai/" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-white hover:text-lawai-secondary transition-colors"
+                className="text-white hover:text-lawai-lightCoral transition-colors"
               >
                 <Instagram size={24} />
               </a>
@@ -25,7 +26,7 @@ const Footer = () => {
                 href="https://x.com/lawroomai" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-white hover:text-lawai-secondary transition-colors"
+                className="text-white hover:text-lawai-lightCoral transition-colors"
               >
                 <Twitter size={24} />
               </a>
@@ -33,7 +34,7 @@ const Footer = () => {
                 href="https://in.linkedin.com/company/lawroomai" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-white hover:text-lawai-secondary transition-colors"
+                className="text-white hover:text-lawai-lightCoral transition-colors"
               >
                 <Linkedin size={24} />
               </a>
@@ -43,8 +44,9 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
-              <li><a href="/" className="hover:text-lawai-secondary transition-colors">Home</a></li>
-              <li><a href="/chat" className="hover:text-lawai-secondary transition-colors">Legal AI Chat</a></li>
+              <li><Link to="/" className="hover:text-lawai-lightCoral transition-colors">Home</Link></li>
+              <li><Link to="/chat" className="hover:text-lawai-lightCoral transition-colors">Legal AI Chat</Link></li>
+              <li><Link to="/upcoming-features" className="hover:text-lawai-lightCoral transition-colors">Upcoming Features</Link></li>
             </ul>
           </div>
           
