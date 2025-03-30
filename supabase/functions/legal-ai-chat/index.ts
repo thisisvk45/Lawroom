@@ -1,8 +1,8 @@
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
-const CLAUDE_API_KEY = Deno.env.get("CLAUDE_API_KEY");
-const CLAUDE_API_URL = "https://api.anthropic.com/v1/messages";
+const DEEPSEEK_API_KEY = Deno.env.get("DEEPSEEK_API_KEY");
+const DEEPSEEK_API_URL = "https://api.deepseek.com/v1/chat/completions";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -18,7 +18,7 @@ serve(async (req) => {
   try {
     const { userMessage, messageHistory } = await req.json();
     
-    // Transform the history into Claude's format
+    // Transform the history into DeepSeek's format
     const messages = messageHistory.map(msg => ({
       role: msg.isAi ? "assistant" : "user",
       content: msg.text
@@ -30,19 +30,20 @@ serve(async (req) => {
       content: userMessage
     });
 
-    // System prompt for legal assistant
-    const systemPrompt = "You are Lawroom AI, a helpful legal research assistant specialized in Indian law. Provide accurate, clear, and concise information about Indian legal concepts, cases, and statutes. When answering questions, cite relevant laws and precedents. If you don't know the answer, say so instead of making up information.";
+    // Add system prompt as first message
+    messages.unshift({
+      role: "system",
+      content: "You are Lawroom AI, a helpful legal research assistant specialized in Indian law. Provide accurate, clear, and concise information about Indian legal concepts, cases, and statutes. When answering questions, cite relevant laws and precedents. If you don't know the answer, say so instead of making up information."
+    });
 
-    const response = await fetch(CLAUDE_API_URL, {
+    const response = await fetch(DEEPSEEK_API_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "x-api-key": CLAUDE_API_KEY,
-        "anthropic-version": "2023-06-01"
+        "Authorization": `Bearer ${DEEPSEEK_API_KEY}`
       },
       body: JSON.stringify({
-        model: "claude-3-haiku-20240307",
-        system: systemPrompt,
+        model: "deepseek-chat",
         messages: messages,
         max_tokens: 1000,
         temperature: 0.7
@@ -51,13 +52,13 @@ serve(async (req) => {
 
     if (!response.ok) {
       const errorData = await response.text();
-      console.error("Claude API error:", errorData);
-      throw new Error(`Claude API error: ${response.status}`);
+      console.error("DeepSeek API error:", errorData);
+      throw new Error(`DeepSeek API error: ${response.status}`);
     }
 
     const data = await response.json();
     return new Response(JSON.stringify({ 
-      message: data.content[0].text 
+      message: data.choices[0].message.content 
     }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });

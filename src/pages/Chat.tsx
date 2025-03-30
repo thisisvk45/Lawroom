@@ -55,7 +55,7 @@ const Chat = () => {
     
     try {
       // Get message history excluding the initial greeting for better context
-      const messageHistory = messages.length > 1 ? messages : [];
+      const messageHistory = messages.slice(1);
       
       // Call the Supabase edge function
       const { data, error } = await supabase.functions.invoke('legal-ai-chat', {
@@ -158,7 +158,7 @@ const Chat = () => {
                 </Button>
               </div>
               <p className="text-xs text-gray-500 mt-2 text-center">
-                Powered by Claude AI with expertise in Indian legal information.
+                Powered by DeepSeek AI with expertise in Indian legal information.
               </p>
             </div>
           </div>
