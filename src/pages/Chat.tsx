@@ -2,7 +2,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Send } from "lucide-react";
+import { Send, AlertCircle } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ChatMessage from "@/components/ChatMessage";
@@ -28,6 +28,7 @@ const Chat = () => {
   const [messages, setMessages] = useState<Message[]>([initialMessage]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [serviceError, setServiceError] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
 
@@ -41,6 +42,9 @@ const Chat = () => {
 
   const handleSendMessage = async () => {
     if (!input.trim()) return;
+    
+    // Reset service error when trying again
+    setServiceError(null);
     
     // Add user message
     const userMessage: Message = {
@@ -66,7 +70,20 @@ const Chat = () => {
       });
 
       if (error) {
+        console.error('Error calling AI:', error);
         throw new Error(error.message || 'Failed to get response from AI');
+      }
+
+      if (data.error) {
+        console.error('API error:', data.error);
+        
+        if (data.error.includes("Insufficient Balance") || data.error.includes("402")) {
+          setServiceError("The AI service is currently unavailable due to account limits. Please try again later.");
+        } else {
+          setServiceError(`AI service error: ${data.error}`);
+        }
+        
+        return;
       }
 
       // Add AI response to messages
@@ -79,20 +96,15 @@ const Chat = () => {
       setMessages(prev => [...prev, aiMessage]);
     } catch (error) {
       console.error('Error calling AI:', error);
+      
+      // Set a detailed error message
+      setServiceError("The AI service is currently unavailable. Please try again later.");
+      
       toast({
         title: "Error",
         description: "Failed to get a response. Please try again later.",
         variant: "destructive",
       });
-      
-      // Add error message
-      const errorMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        text: "I'm sorry, I encountered an error while processing your request. Please try again later.",
-        isAi: true
-      };
-      
-      setMessages(prev => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
     }
@@ -131,6 +143,18 @@ const Chat = () => {
                   isAi={true} 
                   isLoading={true} 
                 />
+              )}
+
+              {serviceError && (
+                <div className="flex justify-center my-4">
+                  <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg flex items-start max-w-[80%]">
+                    <AlertCircle className="h-5 w-5 mr-2 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <p className="font-medium">Service Unavailable</p>
+                      <p className="text-sm">{serviceError}</p>
+                    </div>
+                  </div>
+                </div>
               )}
               
               <div ref={messagesEndRef} />

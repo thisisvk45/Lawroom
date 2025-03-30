@@ -53,7 +53,12 @@ serve(async (req) => {
     if (!response.ok) {
       const errorData = await response.text();
       console.error("DeepSeek API error:", errorData);
-      throw new Error(`DeepSeek API error: ${response.status}`);
+      return new Response(JSON.stringify({ 
+        error: `DeepSeek API error: ${response.status}` 
+      }), {
+        status: response.status,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     const data = await response.json();
