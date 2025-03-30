@@ -1,12 +1,9 @@
-
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-
 const Index = () => {
-  return (
-    <div className="min-h-screen flex flex-col">
+  return <div className="min-h-screen flex flex-col">
       <Header />
       
       <main className="flex-grow">
@@ -15,9 +12,7 @@ const Index = () => {
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
               <div>
-                <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                  Indian Legal Research, Reimagined with AI
-                </h1>
+                <h1 className="text-4xl mb-6 md:text-4xl font-semibold">Indian Legal Research and Services, Reimagined with AI</h1>
                 <p className="text-lg mb-8">
                   Get instant, accurate answers to your legal questions. Lawroom AI is built specifically for Indian law, making legal research faster and more accessible.
                 </p>
@@ -173,8 +168,6 @@ const Index = () => {
       </main>
       
       <Footer />
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
