@@ -1,4 +1,4 @@
-# Welcome to your BRupani Lawroom app 
+# Welcome to Lawroom app 
 
 ## Project info
 
