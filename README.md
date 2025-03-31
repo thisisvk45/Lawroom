@@ -2,12 +2,6 @@
 
 ## Project info
 
-**URL**: https://lovable.dev/projects/bacbf6a0-6002-460e-9102-3147f166df83
-
-## How can I edit this code?
-
-Simply visit the (https://lovable.dev/projects/bacbf6a0-6002-460e-9102-3147f166df83) and start prompting.
-
 **Use your preferred IDE**
 
 If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
