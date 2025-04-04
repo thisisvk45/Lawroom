@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import Chat from "./pages/Chat";
 import UpcomingFeatures from "./pages/UpcomingFeatures";
 import NotFound from "./pages/NotFound";
+import SmartDrafting from "./pages/SmartDrafting";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +22,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/chat" element={<Chat />} />
           <Route path="/upcoming-features" element={<UpcomingFeatures />} />
+          <Route path="/smart-drafting" element={<SmartDrafting />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
