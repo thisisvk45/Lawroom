@@ -1,19 +1,13 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Instagram, Twitter, Linkedin, Menu, X } from "lucide-react";
+import { useState } from "react";
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
-  };
-
-  const handleSmartDraftingClick = () => {
-    // Implement your custom logic here
-    console.log("Smart Drafting button clicked");
-    // For example, open a modal or display a section related to Smart Drafting
   };
 
   return (
@@ -35,29 +29,31 @@ const Header = () => {
           </button>
         </div>
 
-        {/* Desktop navigation */}
-        <div className="hidden md:flex items-center space-x-6">
+        {/* Desktop navigation with continuous gradient */}
+        <div className="hidden md:flex items-center space-x-6 bg-gradient-to-r from-lawai-deepTeal to-lawai-coral bg-clip-text text-transparent">
           <Link
             to="/"
-            className="font-medium text-gray-600 hover:text-lawai-teal transition-colors"
+            className="font-medium bg-clip-text text-transparent"
           >
             Home
           </Link>
           <Link
             to="/chat"
-            className="font-medium text-gray-600 hover:text-lawai-teal transition-colors"
+            className="font-medium bg-clip-text text-transparent"
           >
-              Legal AI Chat
+            Legal AI Chat
           </Link>
-          <Link
-            to="/smart-drafting" 
-            className="font-medium text-gray-600 hover:text-lawai-teal transition-colors py-2"
+          <a
+            href="https://remarkable-kashata-783e16.netlify.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium bg-clip-text text-transparent"
           >
             Smart Drafting
-          </Link>
+          </a>
           <Link
             to="/upcoming-features"
-            className="font-medium text-gray-600 hover:text-lawai-teal transition-colors py-2"
+            className="font-medium bg-clip-text text-transparent"
           >
             Upcoming Features
           </Link>
@@ -103,30 +99,30 @@ const Header = () => {
           <div className="container mx-auto px-4 flex flex-col space-y-4">
             <Link
               to="/"
-              className="font-medium text-gray-600 hover:text-lawai-teal transition-colors py-2"
+              className="font-medium text-gray-600 hover:bg-gradient-to-r hover:from-lawai-deepTeal hover:to-lawai-coral hover:bg-clip-text hover:text-transparent transition-colors py-2"
               onClick={() => setMobileMenuOpen(false)}
             >
               Home
             </Link>
             <Link
               to="/chat"
-              className="font-medium text-gray-600 hover:text-lawai-teal transition-colors py-2"
+              className="font-medium text-gray-600 hover:bg-gradient-to-r hover:from-lawai-deepTeal hover:to-lawai-coral hover:bg-clip-text hover:text-transparent transition-colors py-2"
               onClick={() => setMobileMenuOpen(false)}
             >
               Legal AI Chat
             </Link>
-            <button
-              onClick={() => {
-                handleSmartDraftingClick();
-                setMobileMenuOpen(false);
-              }}
-              className="font-medium text-gray-600 hover:text-lawai-teal transition-colors py-2 text-left"
+            <a
+              href="https://chatgpt.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-gray-600 hover:bg-gradient-to-r hover:from-lawai-deepTeal hover:to-lawai-coral hover:bg-clip-text hover:text-transparent transition-colors py-2"
+              onClick={() => setMobileMenuOpen(false)}
             >
               Smart Drafting
-            </button>
+            </a>
             <Link
               to="/upcoming-features"
-              className="font-medium text-gray-600 hover:text-lawai-teal transition-colors py-2"
+              className="font-medium text-gray-600 hover:bg-gradient-to-r hover:from-lawai-deepTeal hover:to-lawai-coral hover:bg-clip-text hover:text-transparent transition-colors py-2"
               onClick={() => setMobileMenuOpen(false)}
             >
               Upcoming Features
