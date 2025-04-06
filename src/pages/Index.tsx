@@ -2,8 +2,51 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { useRef, useEffect } from "react";
 
 const Index = () => {
+  const testimonialRef = useRef(null);
+
+  useEffect(() => {
+    const scrollContainer = testimonialRef.current;
+    if (!scrollContainer) return;
+
+    let animationId;
+    let scrollPosition = 0;
+    const scrollSpeed = 0.5;
+
+    const scroll = () => {
+      scrollPosition += scrollSpeed;
+      
+      // When a testimonial completely exits the view, move it to the end
+      if (scrollPosition >= scrollContainer.children[0].offsetWidth) {
+        scrollPosition = 0;
+        // Move the first element to the end
+        const firstItem = scrollContainer.children[0];
+        scrollContainer.appendChild(firstItem.cloneNode(true));
+        scrollContainer.removeChild(firstItem);
+      }
+      
+      scrollContainer.scrollLeft = scrollPosition;
+      animationId = requestAnimationFrame(scroll);
+    };
+
+    animationId = requestAnimationFrame(scroll);
+
+    // Pause animation when user hovers
+    scrollContainer.addEventListener('mouseenter', () => {
+      cancelAnimationFrame(animationId);
+    });
+
+    scrollContainer.addEventListener('mouseleave', () => {
+      animationId = requestAnimationFrame(scroll);
+    });
+
+    return () => {
+      cancelAnimationFrame(animationId);
+    };
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -193,71 +236,85 @@ const Index = () => {
             <h2 className="text-3xl font-bold text-center mb-12 text-lawai-primary">
               What Our Users Say
             </h2>
-        
-            <div className="flex overflow-x-auto space-x-6 px-2 pb-4">
-              {[
-                {
-                  name: "Amit Sharma",
-                  role: "Senior Advocate",
-                  feedback:
-                    "Lawroom AI saved me hours of legal research! It's incredibly accurate and easy to use.",
-                },
-                {
-                  name: "Priya Mehta",
-                  role: "Law Student",
-                  feedback:
-                    "As a law student, Lawroom AI has made my studies a lot easier. It provides clear and concise answers.",
-                },
-                {
-                  name: "Ravi Verma",
-                  role: "Corporate Lawyer",
-                  feedback:
-                    "I can rely on Lawroom AI for up-to-date legal info and case references for my practice.",
-                },
-                {
-                  name: "Deepika Agarwal",
-                  role: "Legal Researcher",
-                  feedback:
-                    "As a researcher, Lawroom AI has become my go-to tool for quick, reliable legal insights.",
-                },
-                {
-                  name: "Vikas Joshi",
-                  role: "Litigation Lawyer",
-                  feedback:
-                    "This AI platform is excellent for legal professionals, offering highly accurate results!",
-                },
-                {
-                  name: "Sanjay Reddy",
-                  role: "Law Graduate",
-                  feedback:
-                    "With Lawroom AI, I can find relevant case studies in seconds. It’s a game-changer.",
-                },
-                {
-                  name: "Ananya Sharma",
-                  role: "Public Policy Expert",
-                  feedback:
-                    "Lawroom AI has helped me stay ahead in my legal career by providing the best research resources.",
-                },
-              ].map((testimonial, idx) => (
-                <div
-                  key={idx}
-                  className={`flex-shrink-0 w-72 p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 ${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'} space-y-4`}
-                >
-                  <div className="flex items-center">
-                    <span className="text-xl text-lawai-primary mr-2">“</span>
-                    <p className="text-gray-700 italic">{testimonial.feedback}</p>
-                    <span className="text-xl text-lawai-primary ml-2">”</span>
-                  </div>
-                  <div className="font-bold text-lawai-primary">{testimonial.name}</div>
-                  <div className="text-sm text-gray-500">{testimonial.role}</div>
-                </div>
-              ))}
+            
+            {/* Testimonials with Marquee Effect */}
+            <div className="relative overflow-hidden">
+              {/* Gradient Overlay - Left */}
+              <div className="absolute left-0 top-0 bottom-0 w-20 z-10 pointer-events-none bg-gradient-to-r from-gray-100 to-transparent"></div>
+              
+              {/* Scrolling Testimonials Container */}
+              <div 
+                ref={testimonialRef}
+                className="flex overflow-x-auto pb-6 no-scrollbar" 
+                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+              >
+                {/* We duplicate testimonials to create continuous effect */}
+                {[...Array(2)].flatMap((_, outerIdx) => (
+                  [
+                    {
+                      name: "Amit Sharma",
+                      role: "Senior Advocate",
+                      feedback:
+                        "Lawroom AI saved me hours of legal research! It's incredibly accurate and easy to use.",
+                    },
+                    {
+                      name: "Priya Mehta",
+                      role: "Law Student",
+                      feedback:
+                        "As a law student, Lawroom AI has made my studies a lot easier. It provides clear and concise answers.",
+                    },
+                    {
+                      name: "Ravi Verma",
+                      role: "Corporate Lawyer",
+                      feedback:
+                        "I can rely on Lawroom AI for up-to-date legal info and case references for my practice.",
+                    },
+                    {
+                      name: "Deepika Agarwal",
+                      role: "Legal Researcher",
+                      feedback:
+                        "As a researcher, Lawroom AI has become my go-to tool for quick, reliable legal insights.",
+                    },
+                    {
+                      name: "Vikas Joshi",
+                      role: "Litigation Lawyer",
+                      feedback:
+                        "This AI platform is excellent for legal professionals, offering highly accurate results!",
+                    },
+                    {
+                      name: "Sanjay Reddy",
+                      role: "Law Graduate",
+                      feedback:
+                        "With Lawroom AI, I can find relevant case studies in seconds. It's a game-changer.",
+                    },
+                    {
+                      name: "Ananya Sharma",
+                      role: "Public Policy Expert",
+                      feedback:
+                        "Lawroom AI has helped me stay ahead in my legal career by providing the best research resources.",
+                    },
+                  ].map((testimonial, idx) => (
+                    <div
+                      key={`${outerIdx}-${idx}`}
+                      className={`flex-shrink-0 w-72 mx-3 p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 ${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}
+                    >
+                      <div className="flex items-center mb-4">
+                        <span className="text-xl text-lawai-primary mr-2">"</span>
+                        <p className="text-gray-700 italic">{testimonial.feedback}</p>
+                        <span className="text-xl text-lawai-primary ml-2">"</span>
+                      </div>
+                      <div className="font-bold text-lawai-primary">{testimonial.name}</div>
+                      <div className="text-sm text-gray-500">{testimonial.role}</div>
+                    </div>
+                  ))
+                ))}
+              </div>
+              
+              {/* Gradient Overlay - Right */}
+              <div className="absolute right-0 top-0 bottom-0 w-20 z-10 pointer-events-none bg-gradient-to-l from-gray-100 to-transparent"></div>
             </div>
           </div>
         </section>
-  
-          
-       
       </main>
 
       <Footer />
