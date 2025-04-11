@@ -137,7 +137,7 @@ const Chat = () => {
       const response = await fetch("https://api.openai.com/v1/chat/completions", {
         method: "POST",
         headers: {
-          "Authorization": `Bearer sk-proj-KnApjB9bXKioJELCj433T3BlbkFJbhwCyArONy6W1s4evIFt`,
+          "Authorization": `Bearer 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`,
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
